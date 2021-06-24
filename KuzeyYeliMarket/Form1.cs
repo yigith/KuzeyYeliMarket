@@ -81,7 +81,7 @@ namespace KuzeyYeliMarket
 
         private void dgvUrunler_SelectionChanged(object sender, EventArgs e)
         {
-            btnYeniUrun.Enabled = btnUrunDuzenle.Enabled = btnUrunSil.Enabled = dgvUrunler.SelectedRows.Count != 0;
+            btnUrunDuzenle.Enabled = btnUrunSil.Enabled = dgvUrunler.SelectedRows.Count != 0;
         }
 
         private void btnKategoriSil_Click(object sender, EventArgs e)
@@ -176,7 +176,45 @@ namespace KuzeyYeliMarket
 
         private void btnYeniUrun_Click(object sender, EventArgs e)
         {
-            // aradan sonra burada yeni bir ürün form açacağız
+            UrunForm frm = new UrunForm(con);
+            DialogResult dr = frm.ShowDialog();
+
+            if (dr == DialogResult.OK)
+            {
+                KategorileriListele();
+                UrunuSec(frm.Urun);
+            }
+        }
+
+        private void UrunuSec(Urun urun)
+        {
+            KategoriyiSec(urun.KategoriId);
+
+            dgvUrunler.ClearSelection();
+            for (int i = 0; i < dgvUrunler.Rows.Count; i++)
+            {
+                DataGridViewRow row = dgvUrunler.Rows[i];
+                Urun u = (Urun)row.DataBoundItem;
+
+                if (urun.Id == u.Id)
+                {
+                    row.Selected = true;
+                }
+            }
+        }
+
+        private void btnUrunDuzenle_Click(object sender, EventArgs e)
+        {
+            if (dgvUrunler.SelectedRows.Count == 0) return;
+            Urun urun = (Urun)dgvUrunler.SelectedRows[0].DataBoundItem;
+            UrunForm frm = new UrunForm(con, urun);
+            DialogResult dr = frm.ShowDialog();
+
+            if (dr == DialogResult.OK)
+            {
+                KategorileriListele();
+                UrunuSec(urun);
+            }
         }
     }
 }

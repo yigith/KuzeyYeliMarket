@@ -59,7 +59,7 @@ namespace KuzeyYeliMarket
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(229, 24);
+            this.label2.Location = new System.Drawing.Point(225, 24);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 20);
             this.label2.TabIndex = 5;
@@ -74,7 +74,7 @@ namespace KuzeyYeliMarket
             this.lstKategoriler.ItemHeight = 20;
             this.lstKategoriler.Location = new System.Drawing.Point(12, 52);
             this.lstKategoriler.Name = "lstKategoriler";
-            this.lstKategoriler.Size = new System.Drawing.Size(211, 364);
+            this.lstKategoriler.Size = new System.Drawing.Size(211, 324);
             this.lstKategoriler.TabIndex = 2;
             this.lstKategoriler.ValueMember = "Id";
             this.lstKategoriler.SelectedIndexChanged += new System.EventHandler(this.lstKategoriler_SelectedIndexChanged);
@@ -96,28 +96,29 @@ namespace KuzeyYeliMarket
             this.dgvUrunler.ReadOnly = true;
             this.dgvUrunler.RowHeadersVisible = false;
             this.dgvUrunler.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUrunler.Size = new System.Drawing.Size(562, 364);
+            this.dgvUrunler.Size = new System.Drawing.Size(532, 324);
             this.dgvUrunler.TabIndex = 7;
             this.dgvUrunler.SelectionChanged += new System.EventHandler(this.dgvUrunler_SelectionChanged);
             this.dgvUrunler.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvUrunler_KeyDown);
             // 
             // btnUrunDuzenle
             // 
-            this.btnUrunDuzenle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUrunDuzenle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnUrunDuzenle.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnUrunDuzenle.BackgroundImage")));
             this.btnUrunDuzenle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnUrunDuzenle.Location = new System.Drawing.Point(737, 22);
+            this.btnUrunDuzenle.Location = new System.Drawing.Point(259, 383);
             this.btnUrunDuzenle.Name = "btnUrunDuzenle";
             this.btnUrunDuzenle.Size = new System.Drawing.Size(24, 24);
             this.btnUrunDuzenle.TabIndex = 10;
             this.btnUrunDuzenle.UseVisualStyleBackColor = true;
+            this.btnUrunDuzenle.Click += new System.EventHandler(this.btnUrunDuzenle_Click);
             // 
             // btnUrunSil
             // 
-            this.btnUrunSil.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUrunSil.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnUrunSil.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnUrunSil.BackgroundImage")));
             this.btnUrunSil.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnUrunSil.Location = new System.Drawing.Point(767, 22);
+            this.btnUrunSil.Location = new System.Drawing.Point(289, 383);
             this.btnUrunSil.Name = "btnUrunSil";
             this.btnUrunSil.Size = new System.Drawing.Size(24, 24);
             this.btnUrunSil.TabIndex = 9;
@@ -126,10 +127,10 @@ namespace KuzeyYeliMarket
             // 
             // btnYeniUrun
             // 
-            this.btnYeniUrun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnYeniUrun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnYeniUrun.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnYeniUrun.BackgroundImage")));
             this.btnYeniUrun.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnYeniUrun.Location = new System.Drawing.Point(707, 22);
+            this.btnYeniUrun.Location = new System.Drawing.Point(229, 383);
             this.btnYeniUrun.Name = "btnYeniUrun";
             this.btnYeniUrun.Size = new System.Drawing.Size(24, 24);
             this.btnYeniUrun.TabIndex = 8;
@@ -138,9 +139,10 @@ namespace KuzeyYeliMarket
             // 
             // btnKategoriDuzenle
             // 
+            this.btnKategoriDuzenle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnKategoriDuzenle.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnKategoriDuzenle.BackgroundImage")));
             this.btnKategoriDuzenle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnKategoriDuzenle.Location = new System.Drawing.Point(169, 22);
+            this.btnKategoriDuzenle.Location = new System.Drawing.Point(42, 383);
             this.btnKategoriDuzenle.Name = "btnKategoriDuzenle";
             this.btnKategoriDuzenle.Size = new System.Drawing.Size(24, 24);
             this.btnKategoriDuzenle.TabIndex = 4;
@@ -149,9 +151,10 @@ namespace KuzeyYeliMarket
             // 
             // btnKategoriSil
             // 
+            this.btnKategoriSil.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnKategoriSil.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnKategoriSil.BackgroundImage")));
             this.btnKategoriSil.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnKategoriSil.Location = new System.Drawing.Point(199, 22);
+            this.btnKategoriSil.Location = new System.Drawing.Point(72, 383);
             this.btnKategoriSil.Name = "btnKategoriSil";
             this.btnKategoriSil.Size = new System.Drawing.Size(24, 24);
             this.btnKategoriSil.TabIndex = 3;
@@ -160,9 +163,10 @@ namespace KuzeyYeliMarket
             // 
             // btnYeniKategori
             // 
+            this.btnYeniKategori.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnYeniKategori.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnYeniKategori.BackgroundImage")));
             this.btnYeniKategori.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnYeniKategori.Location = new System.Drawing.Point(139, 22);
+            this.btnYeniKategori.Location = new System.Drawing.Point(12, 383);
             this.btnYeniKategori.Name = "btnYeniKategori";
             this.btnYeniKategori.Size = new System.Drawing.Size(24, 24);
             this.btnYeniKategori.TabIndex = 1;
@@ -173,7 +177,7 @@ namespace KuzeyYeliMarket
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(803, 428);
+            this.ClientSize = new System.Drawing.Size(773, 422);
             this.Controls.Add(this.btnUrunDuzenle);
             this.Controls.Add(this.btnUrunSil);
             this.Controls.Add(this.btnYeniUrun);
