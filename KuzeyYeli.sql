@@ -1,6 +1,7 @@
 ﻿USE master;
 GO
 
+DROP DATABASE KuzeyYeli;
 CREATE DATABASE KuzeyYeli;
 GO
 

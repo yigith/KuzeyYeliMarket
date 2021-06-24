@@ -24,6 +24,13 @@ namespace KuzeyYeliMarket
             InitializeComponent();
         }
 
+        public KategoriForm(SqlConnection connection, Kategori kategori) : this(connection)
+        {
+            this.kategori = kategori;
+            txtId.Text = kategori.Id.ToString();
+            txtKategoriAd.Text = kategori.KategoriAd;
+        }
+
         private void btnIptal_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
@@ -38,6 +45,7 @@ namespace KuzeyYeliMarket
                 return;
             }
 
+            // düzenlenen bir kategori yoksa yeni kategori ekle
             if (kategori == null)
             {
                 var cmd = new SqlCommand(
@@ -45,6 +53,14 @@ namespace KuzeyYeliMarket
                     "SELECT SCOPE_IDENTITY();", con);
                 cmd.Parameters.AddWithValue("@p1", kategoriAd);
                 SonEklenenId = (int)(decimal)cmd.ExecuteScalar();
+            }
+            else
+            {
+                var cmd = new SqlCommand(
+                    "UPDATE Kategoriler SET KategoriAd = @p1 WHERE Id = @p2", con);
+                cmd.Parameters.AddWithValue("@p1", kategoriAd);
+                cmd.Parameters.AddWithValue("@p2", kategori.Id);
+                cmd.ExecuteNonQuery();
             }
 
             DialogResult = DialogResult.OK;

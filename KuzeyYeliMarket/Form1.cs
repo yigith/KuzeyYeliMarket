@@ -112,9 +112,10 @@ namespace KuzeyYeliMarket
 
             if (dr == DialogResult.Yes)
             {
-                Urun kategori = (Urun)dgvUrunler.SelectedRows[0].DataBoundItem;
-                UrunSil(kategori.Id);
+                Urun urun = (Urun)dgvUrunler.SelectedRows[0].DataBoundItem;
+                UrunSil(urun.Id);
                 KategorileriListele();
+                KategoriyiSec(urun.KategoriId);
             }
         }
 
@@ -137,24 +138,45 @@ namespace KuzeyYeliMarket
             }
         }
 
-        private void KategoriyiSec(int sonEklenenId)
+        private void KategoriyiSec(int kategoriId)
         {
-            for (int i = 0; i < lstKategoriler.Items.Count; i++)
-            {
-                Kategori kat = (Kategori)lstKategoriler.Items[i];
-
-                if (kat.Id == sonEklenenId)
-                {
-                    lstKategoriler.SelectedIndex = i;
-                    return;
-                }
-            }
+            lstKategoriler.SelectedValue = kategoriId;
         }
 
         private void btnKategoriDuzenle_Click(object sender, EventArgs e)
         {
             if (lstKategoriler.SelectedIndex == -1) return;
             Kategori kategori = (Kategori)lstKategoriler.SelectedItem;
+            KategoriForm frm = new KategoriForm(con, kategori);
+            DialogResult dr = frm.ShowDialog();
+
+            if (dr == DialogResult.OK)
+            {
+                KategorileriListele();
+                KategoriyiSec(kategori.Id);
+            }
+
+        }
+
+        private void lstKategoriler_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                btnKategoriSil.PerformClick();
+            }
+        }
+
+        private void dgvUrunler_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && dgvUrunler.SelectedRows.Count > 0)
+            {
+                btnUrunSil.PerformClick();
+            }
+        }
+
+        private void btnYeniUrun_Click(object sender, EventArgs e)
+        {
+            // aradan sonra burada yeni bir ürün form açacağız
         }
     }
 }
