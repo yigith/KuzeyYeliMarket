@@ -27,7 +27,7 @@ namespace KuzeyYeliMarket
         private void KategorileriListele()
         {
             kategoriler = new List<Kategori>();
-            var cmd = new SqlCommand("SELECT Id, KategoriAd FROM Kategoriler", con);
+            var cmd = new SqlCommand("SELECT Id, KategoriAd FROM Kategoriler ORDER BY KategoriAd", con);
             var dr = cmd.ExecuteReader();
 
             while (dr.Read())
@@ -45,6 +45,8 @@ namespace KuzeyYeliMarket
         private void lstKategoriler_SelectedIndexChanged(object sender, EventArgs e)
         {
             UrunleriListele();
+            btnYeniKategori.Enabled = btnKategoriDuzenle.Enabled = btnKategoriSil.Enabled = lstKategoriler.SelectedIndex != -1;
+
         }
 
         private void UrunleriListele()
@@ -75,6 +77,84 @@ namespace KuzeyYeliMarket
             }
             dr.Close();
             dgvUrunler.DataSource = urunler;
+        }
+
+        private void dgvUrunler_SelectionChanged(object sender, EventArgs e)
+        {
+            btnYeniUrun.Enabled = btnUrunDuzenle.Enabled = btnUrunSil.Enabled = dgvUrunler.SelectedRows.Count != 0;
+        }
+
+        private void btnKategoriSil_Click(object sender, EventArgs e)
+        {
+            if (lstKategoriler.SelectedIndex == -1) return;
+
+            DialogResult dr = MessageBox.Show("Seçili kategori ve altındaki tüm ürünler silinecektir. Onaylıyor musunuz?", "Silme Onayı", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+            if (dr == DialogResult.Yes)
+            {
+                KategoriSil((int)lstKategoriler.SelectedValue);
+                KategorileriListele();
+            }
+        }
+
+        private void KategoriSil(int id)
+        {
+            var cmd = new SqlCommand("DELETE FROM Kategoriler WHERE Id = @p1", con);
+            cmd.Parameters.AddWithValue("@p1", id);
+            cmd.ExecuteNonQuery();
+        }
+
+        private void btnUrunSil_Click(object sender, EventArgs e)
+        {
+            if (dgvUrunler.SelectedRows.Count == 0) return;
+
+            DialogResult dr = MessageBox.Show("Seçili ürün silinecektir. Onaylıyor musunuz?", "Silme Onayı", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+            if (dr == DialogResult.Yes)
+            {
+                Urun kategori = (Urun)dgvUrunler.SelectedRows[0].DataBoundItem;
+                UrunSil(kategori.Id);
+                KategorileriListele();
+            }
+        }
+
+        private void UrunSil(int id)
+        {
+            var cmd = new SqlCommand("DELETE FROM Urunler WHERE Id = @p1", con);
+            cmd.Parameters.AddWithValue("@p1", id);
+            cmd.ExecuteNonQuery();
+        }
+
+        private void btnYeniKategori_Click(object sender, EventArgs e)
+        {
+            KategoriForm frm = new KategoriForm(con);
+            DialogResult dr = frm.ShowDialog();
+
+            if (dr == DialogResult.OK)
+            {
+                KategorileriListele();
+                KategoriyiSec(frm.SonEklenenId);
+            }
+        }
+
+        private void KategoriyiSec(int sonEklenenId)
+        {
+            for (int i = 0; i < lstKategoriler.Items.Count; i++)
+            {
+                Kategori kat = (Kategori)lstKategoriler.Items[i];
+
+                if (kat.Id == sonEklenenId)
+                {
+                    lstKategoriler.SelectedIndex = i;
+                    return;
+                }
+            }
+        }
+
+        private void btnKategoriDuzenle_Click(object sender, EventArgs e)
+        {
+            if (lstKategoriler.SelectedIndex == -1) return;
+            Kategori kategori = (Kategori)lstKategoriler.SelectedItem;
         }
     }
 }
