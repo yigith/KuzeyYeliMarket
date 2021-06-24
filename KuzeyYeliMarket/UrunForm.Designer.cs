@@ -44,6 +44,7 @@ namespace KuzeyYeliMarket
             this.pboResim = new System.Windows.Forms.PictureBox();
             this.btnResimSec = new System.Windows.Forms.Button();
             this.cboKategori = new System.Windows.Forms.ComboBox();
+            this.ofdResim = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.nudBirimFiyat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudStokAdet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboResim)).BeginInit();
@@ -170,6 +171,7 @@ namespace KuzeyYeliMarket
             this.pboResim.Location = new System.Drawing.Point(282, 23);
             this.pboResim.Name = "pboResim";
             this.pboResim.Size = new System.Drawing.Size(167, 167);
+            this.pboResim.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pboResim.TabIndex = 19;
             this.pboResim.TabStop = false;
             // 
@@ -182,6 +184,7 @@ namespace KuzeyYeliMarket
             this.btnResimSec.Size = new System.Drawing.Size(24, 24);
             this.btnResimSec.TabIndex = 8;
             this.btnResimSec.UseVisualStyleBackColor = true;
+            this.btnResimSec.Click += new System.EventHandler(this.btnResimSec_Click);
             // 
             // cboKategori
             // 
@@ -193,6 +196,11 @@ namespace KuzeyYeliMarket
             this.cboKategori.Size = new System.Drawing.Size(148, 28);
             this.cboKategori.TabIndex = 3;
             this.cboKategori.ValueMember = "Id";
+            // 
+            // ofdResim
+            // 
+            this.ofdResim.FileName = "openFileDialog1";
+            this.ofdResim.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*";
             // 
             // UrunForm
             // 
@@ -244,5 +252,6 @@ namespace KuzeyYeliMarket
         private System.Windows.Forms.PictureBox pboResim;
         private System.Windows.Forms.Button btnResimSec;
         private System.Windows.Forms.ComboBox cboKategori;
+        private System.Windows.Forms.OpenFileDialog ofdResim;
     }
 }

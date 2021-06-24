@@ -21,6 +21,7 @@ namespace KuzeyYeliMarket
         {
             con.Open();
             InitializeComponent();
+            dgvUrunler.AutoGenerateColumns = false; // otomatik sütun oluşturmayı durdur
             KategorileriListele();
         }
 
@@ -72,7 +73,8 @@ namespace KuzeyYeliMarket
                     KategoriId = (int)dr[1],
                     UrunAd = (string)dr[2],
                     BirimFiyat = (decimal)dr[3],
-                    StokAdet = (int)dr[4]
+                    StokAdet = (int)dr[4],
+                    Resim = dr[5] is DBNull ? null : (byte[])dr[5]
                 });
             }
             dr.Close();

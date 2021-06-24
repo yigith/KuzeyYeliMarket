@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,7 @@ namespace KuzeyYeliMarket
             nudBirimFiyat.Value = urun.BirimFiyat;
             nudStokAdet.Value = urun.StokAdet;
             cboKategori.SelectedValue = urun.KategoriId;
+            pboResim.Image = urun.ResmiGetir();
         }
 
         private void KategorileriYukle()
@@ -78,6 +80,7 @@ namespace KuzeyYeliMarket
             Urun.KategoriId = (int)cboKategori.SelectedValue;
             Urun.BirimFiyat = nudBirimFiyat.Value;
             Urun.StokAdet = (int)nudStokAdet.Value;
+            Urun.Resim = ImageToByteArray(pboResim.Image);
             #endregion
 
             #region Veritabanı Ekleme/Güncelleme
@@ -96,28 +99,53 @@ namespace KuzeyYeliMarket
         {
             var cmd = new SqlCommand(
                 "UPDATE Urunler " +
-                "SET KategoriId = @p1, UrunAd = @p2, BirimFiyat = @p3, StokAdet = @p4 " +
+                "SET KategoriId = @p1, UrunAd = @p2, BirimFiyat = @p3, StokAdet = @p4, Resim = @p6 " +
                 "WHERE Id = @p5", con);
             cmd.Parameters.AddWithValue("@p1", urun.KategoriId);
             cmd.Parameters.AddWithValue("@p2", urun.UrunAd);
             cmd.Parameters.AddWithValue("@p3", urun.BirimFiyat);
             cmd.Parameters.AddWithValue("@p4", urun.StokAdet);
             cmd.Parameters.AddWithValue("@p5", urun.Id);
+            cmd.Parameters.AddWithValue("@p6", urun.Resim);
             cmd.ExecuteNonQuery();
         }
 
         private void UrunEkle(Urun urun)
         {
             var cmd = new SqlCommand(
-                "INSERT INTO Urunler(KategoriId, UrunAd, BirimFiyat, StokAdet) " +
-                "VALUES(@p1, @p2, @p3, @p4);" +
+                "INSERT INTO Urunler(KategoriId, UrunAd, BirimFiyat, StokAdet, Resim) " +
+                "VALUES(@p1, @p2, @p3, @p4, @p5);" +
                 "SELECT SCOPE_IDENTITY();", con);
             cmd.Parameters.AddWithValue("@p1", urun.KategoriId);
             cmd.Parameters.AddWithValue("@p2", urun.UrunAd);
             cmd.Parameters.AddWithValue("@p3", urun.BirimFiyat);
             cmd.Parameters.AddWithValue("@p4", urun.StokAdet);
+            cmd.Parameters.AddWithValue("@p5", urun.Resim);
             urun.Id = (int)(decimal)cmd.ExecuteScalar();
             Urun = urun;
+        }
+
+        // https://stackoverflow.com/questions/3801275/how-to-convert-image-to-byte-array
+        public byte[] ImageToByteArray(Image imageIn)
+        {
+            if (imageIn == null) return null;
+            using (var ms = new MemoryStream())
+            {
+                imageIn.Save(ms, imageIn.RawFormat);
+                return ms.ToArray();
+            }
+        }
+
+        private void btnResimSec_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = ofdResim.ShowDialog();
+
+            if (dr == DialogResult.OK)
+            {
+                pboResim.Image = Image.FromFile(ofdResim.FileName);
+            }
+            // Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*
+            // https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.filedialog.filter?view=net-5.0
         }
     }
 }
