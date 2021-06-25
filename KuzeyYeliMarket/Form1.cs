@@ -40,25 +40,31 @@ namespace KuzeyYeliMarket
                 });
             }
             dr.Close();
-            lstKategoriler.DataSource = kategoriler;
+            foreach (Kategori kategori in kategoriler)
+            {
+                TreeNode node = new TreeNode(kategori.KategoriAd);
+                node.Tag = kategori;
+                tviKategoriler.Nodes.Add(node);
+            }
         }
 
         private void lstKategoriler_SelectedIndexChanged(object sender, EventArgs e)
         {
             UrunleriListele();
-            btnYeniKategori.Enabled = btnKategoriDuzenle.Enabled = btnKategoriSil.Enabled = lstKategoriler.SelectedIndex != -1;
+            btnYeniKategori.Enabled = btnKategoriDuzenle.Enabled = btnKategoriSil.Enabled = tviKategoriler.SelectedNode != null;
 
         }
 
         private void UrunleriListele()
         {
-            if (lstKategoriler.SelectedIndex == -1)
+            if (tviKategoriler.SelectedNode == null)
             {
                 dgvUrunler.DataSource = null;
                 return;
             }
 
-            int kategoriId = (int)lstKategoriler.SelectedValue;
+            Kategori kategori = (Kategori)tviKategoriler.SelectedNode.Tag;
+            int kategoriId = kategori.Id;
 
             urunler = new List<Urun>();
             var cmd = new SqlCommand("SELECT Id, KategoriId, UrunAd, BirimFiyat, StokAdet, Resim FROM Urunler WHERE KategoriId = @p1", con);
@@ -88,13 +94,14 @@ namespace KuzeyYeliMarket
 
         private void btnKategoriSil_Click(object sender, EventArgs e)
         {
-            if (lstKategoriler.SelectedIndex == -1) return;
+            if (tviKategoriler.SelectedNode == null) return;
 
             DialogResult dr = MessageBox.Show("Seçili kategori ve altındaki tüm ürünler silinecektir. Onaylıyor musunuz?", "Silme Onayı", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
 
             if (dr == DialogResult.Yes)
             {
-                KategoriSil((int)lstKategoriler.SelectedValue);
+                Kategori kategori = (Kategori)tviKategoriler.SelectedNode.Tag;
+                KategoriSil(kategori.Id);
                 KategorileriListele();
             }
         }
@@ -142,13 +149,21 @@ namespace KuzeyYeliMarket
 
         private void KategoriyiSec(int kategoriId)
         {
-            lstKategoriler.SelectedValue = kategoriId;
+            foreach (TreeNode node in tviKategoriler.Descendants())
+            {
+                Kategori kategori = (Kategori)node.Tag;
+                if (kategori.Id == kategoriId)
+                {
+                    tviKategoriler.SelectedNode = node;
+                    return;
+                }
+            }
         }
 
         private void btnKategoriDuzenle_Click(object sender, EventArgs e)
         {
-            if (lstKategoriler.SelectedIndex == -1) return;
-            Kategori kategori = (Kategori)lstKategoriler.SelectedItem;
+            if (tviKategoriler.SelectedNode == null) return;
+            Kategori kategori = (Kategori)tviKategoriler.SelectedNode.Tag;
             KategoriForm frm = new KategoriForm(con, kategori);
             DialogResult dr = frm.ShowDialog();
 

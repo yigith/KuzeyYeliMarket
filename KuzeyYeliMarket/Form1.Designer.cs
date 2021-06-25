@@ -36,19 +36,19 @@ namespace KuzeyYeliMarket
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.lstKategoriler = new System.Windows.Forms.ListBox();
             this.dgvUrunler = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewImageColumn();
             this.btnUrunDuzenle = new System.Windows.Forms.Button();
             this.btnUrunSil = new System.Windows.Forms.Button();
             this.btnYeniUrun = new System.Windows.Forms.Button();
             this.btnKategoriDuzenle = new System.Windows.Forms.Button();
             this.btnKategoriSil = new System.Windows.Forms.Button();
             this.btnYeniKategori = new System.Windows.Forms.Button();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.tviKategoriler = new System.Windows.Forms.TreeView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUrunler)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,21 +69,6 @@ namespace KuzeyYeliMarket
             this.label2.Size = new System.Drawing.Size(61, 20);
             this.label2.TabIndex = 5;
             this.label2.Text = "Ürünler";
-            // 
-            // lstKategoriler
-            // 
-            this.lstKategoriler.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.lstKategoriler.DisplayMember = "KategoriAd";
-            this.lstKategoriler.FormattingEnabled = true;
-            this.lstKategoriler.ItemHeight = 20;
-            this.lstKategoriler.Location = new System.Drawing.Point(12, 52);
-            this.lstKategoriler.Name = "lstKategoriler";
-            this.lstKategoriler.Size = new System.Drawing.Size(211, 324);
-            this.lstKategoriler.TabIndex = 2;
-            this.lstKategoriler.ValueMember = "Id";
-            this.lstKategoriler.SelectedIndexChanged += new System.EventHandler(this.lstKategoriler_SelectedIndexChanged);
-            this.lstKategoriler.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstKategoriler_KeyDown);
             // 
             // dgvUrunler
             // 
@@ -110,6 +95,44 @@ namespace KuzeyYeliMarket
             this.dgvUrunler.TabIndex = 7;
             this.dgvUrunler.SelectionChanged += new System.EventHandler(this.dgvUrunler_SelectionChanged);
             this.dgvUrunler.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvUrunler_KeyDown);
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "Id";
+            this.Column1.HeaderText = "Id";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "UrunAd";
+            this.Column2.HeaderText = "Ürün Adı";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.DataPropertyName = "BirimFiyat";
+            this.Column3.HeaderText = "Birim Fiyatı (₺)";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "StokAdet";
+            this.Column4.HeaderText = "Stok Adedi";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column5
+            // 
+            this.Column5.DataPropertyName = "Resim";
+            this.Column5.HeaderText = "Ürün Görseli";
+            this.Column5.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // btnUrunDuzenle
             // 
@@ -183,49 +206,21 @@ namespace KuzeyYeliMarket
             this.btnYeniKategori.UseVisualStyleBackColor = true;
             this.btnYeniKategori.Click += new System.EventHandler(this.btnYeniKategori_Click);
             // 
-            // Column1
+            // tviKategoriler
             // 
-            this.Column1.DataPropertyName = "Id";
-            this.Column1.HeaderText = "Id";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "UrunAd";
-            this.Column2.HeaderText = "Ürün Adı";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            this.Column3.DataPropertyName = "BirimFiyat";
-            this.Column3.HeaderText = "Birim Fiyatı (₺)";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.DataPropertyName = "StokAdet";
-            this.Column4.HeaderText = "Stok Adedi";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.DataPropertyName = "Resim";
-            this.Column5.HeaderText = "Ürün Görseli";
-            this.Column5.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.tviKategoriler.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.tviKategoriler.Location = new System.Drawing.Point(12, 52);
+            this.tviKategoriler.Name = "tviKategoriler";
+            this.tviKategoriler.Size = new System.Drawing.Size(211, 325);
+            this.tviKategoriler.TabIndex = 11;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(773, 422);
+            this.Controls.Add(this.tviKategoriler);
             this.Controls.Add(this.btnUrunDuzenle);
             this.Controls.Add(this.btnUrunSil);
             this.Controls.Add(this.btnYeniUrun);
@@ -233,12 +228,12 @@ namespace KuzeyYeliMarket
             this.Controls.Add(this.btnKategoriSil);
             this.Controls.Add(this.btnYeniKategori);
             this.Controls.Add(this.dgvUrunler);
-            this.Controls.Add(this.lstKategoriler);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Market Uygulaması";
             ((System.ComponentModel.ISupportInitialize)(this.dgvUrunler)).EndInit();
             this.ResumeLayout(false);
@@ -250,7 +245,6 @@ namespace KuzeyYeliMarket
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListBox lstKategoriler;
         private System.Windows.Forms.DataGridView dgvUrunler;
         private System.Windows.Forms.Button btnYeniKategori;
         private System.Windows.Forms.Button btnKategoriSil;
@@ -263,6 +257,7 @@ namespace KuzeyYeliMarket
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewImageColumn Column5;
+        private System.Windows.Forms.TreeView tviKategoriler;
     }
 }
 
