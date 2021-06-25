@@ -107,7 +107,12 @@ namespace KuzeyYeliMarket
             cmd.Parameters.AddWithValue("@p3", urun.BirimFiyat);
             cmd.Parameters.AddWithValue("@p4", urun.StokAdet);
             cmd.Parameters.AddWithValue("@p5", urun.Id);
-            cmd.Parameters.AddWithValue("@p6", urun.Resim);
+
+            if (urun.Resim == null)
+                cmd.Parameters.Add("@p6", SqlDbType.VarBinary).Value = DBNull.Value;
+            else
+                cmd.Parameters.AddWithValue("@p6", urun.Resim);
+
             cmd.ExecuteNonQuery();
         }
 
@@ -121,14 +126,12 @@ namespace KuzeyYeliMarket
             cmd.Parameters.AddWithValue("@p2", urun.UrunAd);
             cmd.Parameters.AddWithValue("@p3", urun.BirimFiyat);
             cmd.Parameters.AddWithValue("@p4", urun.StokAdet);
+
             if (urun.Resim == null)
-            {
                 cmd.Parameters.Add("@p5", SqlDbType.VarBinary).Value = DBNull.Value;
-            }
             else
-            {
                 cmd.Parameters.AddWithValue("@p5", urun.Resim);
-            }
+
             urun.Id = (int)(decimal)cmd.ExecuteScalar();
             Urun = urun;
         }
@@ -150,6 +153,11 @@ namespace KuzeyYeliMarket
             }
             // Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*
             // https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.filedialog.filter?view=net-5.0
+        }
+
+        private void btnResimSil_Click(object sender, EventArgs e)
+        {
+            pboResim.Image = null;
         }
     }
 }

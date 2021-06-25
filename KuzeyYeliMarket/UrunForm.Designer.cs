@@ -45,6 +45,7 @@ namespace KuzeyYeliMarket
             this.btnResimSec = new System.Windows.Forms.Button();
             this.cboKategori = new System.Windows.Forms.ComboBox();
             this.ofdResim = new System.Windows.Forms.OpenFileDialog();
+            this.btnResimSil = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudBirimFiyat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudStokAdet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboResim)).BeginInit();
@@ -202,11 +203,24 @@ namespace KuzeyYeliMarket
             this.ofdResim.FileName = "openFileDialog1";
             this.ofdResim.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG|All files (*.*)|*.*";
             // 
+            // btnResimSil
+            // 
+            this.btnResimSil.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnResimSil.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnResimSil.BackgroundImage")));
+            this.btnResimSil.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnResimSil.Location = new System.Drawing.Point(391, 162);
+            this.btnResimSil.Name = "btnResimSil";
+            this.btnResimSil.Size = new System.Drawing.Size(24, 24);
+            this.btnResimSil.TabIndex = 20;
+            this.btnResimSil.UseVisualStyleBackColor = true;
+            this.btnResimSil.Click += new System.EventHandler(this.btnResimSil_Click);
+            // 
             // UrunForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(466, 263);
+            this.Controls.Add(this.btnResimSil);
             this.Controls.Add(this.cboKategori);
             this.Controls.Add(this.btnResimSec);
             this.Controls.Add(this.pboResim);
@@ -253,5 +267,6 @@ namespace KuzeyYeliMarket
         private System.Windows.Forms.Button btnResimSec;
         private System.Windows.Forms.ComboBox cboKategori;
         private System.Windows.Forms.OpenFileDialog ofdResim;
+        private System.Windows.Forms.Button btnResimSil;
     }
 }
