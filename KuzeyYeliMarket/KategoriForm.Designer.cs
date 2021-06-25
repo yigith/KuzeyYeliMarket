@@ -35,6 +35,8 @@ namespace KuzeyYeliMarket
             this.btnKaydet = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtKategoriAd = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cboUstKategori = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txtId
@@ -58,7 +60,7 @@ namespace KuzeyYeliMarket
             // 
             // btnIptal
             // 
-            this.btnIptal.Location = new System.Drawing.Point(155, 105);
+            this.btnIptal.Location = new System.Drawing.Point(155, 146);
             this.btnIptal.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnIptal.Name = "btnIptal";
             this.btnIptal.Size = new System.Drawing.Size(112, 35);
@@ -69,7 +71,7 @@ namespace KuzeyYeliMarket
             // 
             // btnKaydet
             // 
-            this.btnKaydet.Location = new System.Drawing.Point(20, 105);
+            this.btnKaydet.Location = new System.Drawing.Point(20, 146);
             this.btnKaydet.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnKaydet.Name = "btnKaydet";
             this.btnKaydet.Size = new System.Drawing.Size(112, 35);
@@ -96,12 +98,35 @@ namespace KuzeyYeliMarket
             this.txtKategoriAd.Size = new System.Drawing.Size(148, 26);
             this.txtKategoriAd.TabIndex = 3;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(16, 89);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(97, 20);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Üst Kategori";
+            // 
+            // cboUstKategori
+            // 
+            this.cboUstKategori.DisplayMember = "KategoriAd";
+            this.cboUstKategori.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboUstKategori.FormattingEnabled = true;
+            this.cboUstKategori.Location = new System.Drawing.Point(120, 86);
+            this.cboUstKategori.Name = "cboUstKategori";
+            this.cboUstKategori.Size = new System.Drawing.Size(147, 28);
+            this.cboUstKategori.TabIndex = 7;
+            this.cboUstKategori.ValueMember = "Id";
+            // 
             // KategoriForm
             // 
             this.AcceptButton = this.btnKaydet;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 157);
+            this.ClientSize = new System.Drawing.Size(292, 212);
+            this.Controls.Add(this.cboUstKategori);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtKategoriAd);
             this.Controls.Add(this.btnKaydet);
@@ -126,5 +151,7 @@ namespace KuzeyYeliMarket
         private System.Windows.Forms.Button btnKaydet;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtKategoriAd;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cboUstKategori;
     }
 }

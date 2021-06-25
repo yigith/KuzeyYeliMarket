@@ -214,6 +214,7 @@ namespace KuzeyYeliMarket
             this.tviKategoriler.Name = "tviKategoriler";
             this.tviKategoriler.Size = new System.Drawing.Size(211, 325);
             this.tviKategoriler.TabIndex = 11;
+            this.tviKategoriler.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tviKategoriler_AfterSelect);
             // 
             // Form1
             // 

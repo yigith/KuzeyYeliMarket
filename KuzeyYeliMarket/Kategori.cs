@@ -10,5 +10,6 @@ namespace KuzeyYeliMarket
     {
         public int Id { get; set; }
         public string KategoriAd { get; set; }
+        public int? UstKategoriId { get; set; }
     }
 }

@@ -22,6 +22,28 @@ namespace KuzeyYeliMarket
         {
             con = connection;
             InitializeComponent();
+            KategorileriYukle();
+        }
+
+        private void KategorileriYukle()
+        {
+            var kategoriler = new List<Kategori>()
+            {
+                new Kategori() { KategoriAd = "Mevcut değil" }
+            };
+            var cmd = new SqlCommand("SELECT Id, KategoriAd FROM Kategoriler ORDER BY KategoriAd", con);
+            var dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                kategoriler.Add(new Kategori()
+                {
+                    Id = (int)dr[0],
+                    KategoriAd = (string)dr[1]
+                });
+            }
+            dr.Close();
+            cboUstKategori.DataSource = kategoriler;
         }
 
         public KategoriForm(SqlConnection connection, Kategori kategori) : this(connection)

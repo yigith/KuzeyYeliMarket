@@ -28,7 +28,7 @@ namespace KuzeyYeliMarket
         private void KategorileriListele()
         {
             kategoriler = new List<Kategori>();
-            var cmd = new SqlCommand("SELECT Id, KategoriAd FROM Kategoriler ORDER BY KategoriAd", con);
+            var cmd = new SqlCommand("SELECT Id, KategoriAd, UstKategoriId FROM Kategoriler ORDER BY KategoriAd", con);
             var dr = cmd.ExecuteReader();
 
             while (dr.Read())
@@ -36,23 +36,26 @@ namespace KuzeyYeliMarket
                 kategoriler.Add(new Kategori()
                 {
                     Id = (int)dr[0],
-                    KategoriAd = (string)dr[1]
+                    KategoriAd = (string)dr[1],
+                    UstKategoriId = dr[2] is DBNull ? null as int? : (int)dr[2]
                 });
             }
             dr.Close();
-            foreach (Kategori kategori in kategoriler)
+            tviKategoriler.Nodes.Clear();
+            foreach (Kategori kategori in kategoriler.Where(x => x.UstKategoriId == null))
             {
                 TreeNode node = new TreeNode(kategori.KategoriAd);
                 node.Tag = kategori;
+
+                foreach (Kategori altKategori in kategoriler.Where(x => x.UstKategoriId == kategori.Id))
+                {
+                    TreeNode subNode = new TreeNode(altKategori.KategoriAd);
+                    subNode.Tag = altKategori;
+                    node.Nodes.Add(subNode);
+                }
+
                 tviKategoriler.Nodes.Add(node);
             }
-        }
-
-        private void lstKategoriler_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UrunleriListele();
-            btnYeniKategori.Enabled = btnKategoriDuzenle.Enabled = btnKategoriSil.Enabled = tviKategoriler.SelectedNode != null;
-
         }
 
         private void UrunleriListele()
@@ -232,6 +235,12 @@ namespace KuzeyYeliMarket
                 KategorileriListele();
                 UrunuSec(urun);
             }
+        }
+
+        private void tviKategoriler_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            UrunleriListele();
+            btnYeniKategori.Enabled = btnKategoriDuzenle.Enabled = btnKategoriSil.Enabled = tviKategoriler.SelectedNode != null;
         }
     }
 }
