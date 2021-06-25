@@ -42,19 +42,26 @@ namespace KuzeyYeliMarket
             }
             dr.Close();
             tviKategoriler.Nodes.Clear();
-            foreach (Kategori kategori in kategoriler.Where(x => x.UstKategoriId == null))
+
+            KategorileriDugumOlarakEkle(tviKategoriler.Nodes, null);
+            
+        }
+
+        /// <summary>
+        /// Bu metot verilen düğüm koleksiyonuna üst kategori id'sine ait olan tüm alt kategorileri
+        /// düğüm olarak (TreeNode) ekler ve aynı işlemi her bir eklenen node'un -varsa- alt 
+        /// kategorileri içinde recursive olarak yapar.
+        /// </summary>
+        /// <param name="nodes">İçerisine düğümlerin ekleneceği düğüm koleksiyonu</param>
+        /// <param name="ustKategoriId">Eklenecek kategorilerin üst kategorisinin id'si</param>
+        private void KategorileriDugumOlarakEkle(TreeNodeCollection nodes, int? ustKategoriId)
+        {
+            foreach (Kategori kategori in kategoriler.Where(x => x.UstKategoriId == ustKategoriId))
             {
                 TreeNode node = new TreeNode(kategori.KategoriAd);
                 node.Tag = kategori;
-
-                foreach (Kategori altKategori in kategoriler.Where(x => x.UstKategoriId == kategori.Id))
-                {
-                    TreeNode subNode = new TreeNode(altKategori.KategoriAd);
-                    subNode.Tag = altKategori;
-                    node.Nodes.Add(subNode);
-                }
-
-                tviKategoriler.Nodes.Add(node);
+                KategorileriDugumOlarakEkle(node.Nodes, kategori.Id);
+                nodes.Add(node);
             }
         }
 

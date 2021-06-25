@@ -66,14 +66,21 @@ namespace KuzeyYeliMarket
                 MessageBox.Show("Önce bir kategori adı belirtmelisiniz.");
                 return;
             }
+            int ustKategoriId = (int)cboUstKategori.SelectedValue;
 
             // düzenlenen bir kategori yoksa yeni kategori ekle
             if (kategori == null)
             {
                 var cmd = new SqlCommand(
-                    "INSERT INTO Kategoriler(KategoriAd) VALUES(@p1); " +
+                    "INSERT INTO Kategoriler(KategoriAd, UstKategoriId) VALUES(@p1, @p2); " +
                     "SELECT SCOPE_IDENTITY();", con);
                 cmd.Parameters.AddWithValue("@p1", kategoriAd);
+
+                if (ustKategoriId == 0)
+                    cmd.Parameters.AddWithValue("@p2", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("@p2", ustKategoriId);
+
                 SonEklenenId = (int)(decimal)cmd.ExecuteScalar();
             }
             else

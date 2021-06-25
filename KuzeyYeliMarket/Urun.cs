@@ -20,10 +20,7 @@ namespace KuzeyYeliMarket
         public Image ResmiGetir()
         {
             if (Resim == null) return null;
-            using (var ms = new MemoryStream(Resim))
-            {
-                return Image.FromStream(ms);
-            }
+            return (Bitmap)((new ImageConverter()).ConvertFrom(Resim));
         }
     }
 }

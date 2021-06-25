@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -120,20 +121,23 @@ namespace KuzeyYeliMarket
             cmd.Parameters.AddWithValue("@p2", urun.UrunAd);
             cmd.Parameters.AddWithValue("@p3", urun.BirimFiyat);
             cmd.Parameters.AddWithValue("@p4", urun.StokAdet);
-            cmd.Parameters.AddWithValue("@p5", urun.Resim);
+            if (urun.Resim == null)
+            {
+                cmd.Parameters.Add("@p5", SqlDbType.VarBinary).Value = DBNull.Value;
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@p5", urun.Resim);
+            }
             urun.Id = (int)(decimal)cmd.ExecuteScalar();
             Urun = urun;
         }
 
         // https://stackoverflow.com/questions/3801275/how-to-convert-image-to-byte-array
-        public byte[] ImageToByteArray(Image imageIn)
+        public byte[] ImageToByteArray(Image image)
         {
-            if (imageIn == null) return null;
-            using (var ms = new MemoryStream())
-            {
-                imageIn.Save(ms, imageIn.RawFormat);
-                return ms.ToArray();
-            }
+            if (image == null) return null;
+            return (byte[])new ImageConverter().ConvertTo(image, typeof(byte[]));
         }
 
         private void btnResimSec_Click(object sender, EventArgs e)
